@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Act2See: Structured Articulated Representations through Robot Interaction</title>
+<meta name="description" content="Act2See — a closed-loop system for reconstructing an explicit URDF of an unknown articulated object during interaction.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111; --body:#1e1e1e; --muted:#8c8c8c; --label:#9a988f;
+    --rule:#e6e4de; --bg:#fdfdfb; --panel:#f4f3ee;
+    --sans:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--body);font-family:var(--sans)}
+  a{color:var(--ink)}
+  .wrap{max-width:900px;margin:0 auto}
+  /* hero */
+  .hero{padding:64px 96px 34px;text-align:center}
+  h1{margin:0 0 22px;font:600 36px/1.16 var(--sans);letter-spacing:-.02em;color:var(--ink)}
+  .authors{font:400 16.5px/1.7 var(--sans);color:#222;max-width:640px;margin:0 auto}
+  .affils{font:400 14px/1.6 var(--sans);color:var(--muted);margin:10px auto 0;max-width:640px}
+  .venue{font:400 12px/1 var(--mono);letter-spacing:.14em;color:var(--label);margin-top:14px}
+  .links{display:flex;gap:24px;justify-content:center;margin-top:24px;font:400 14px var(--mono);color:var(--ink)}
+  .links a{color:var(--ink);text-underline-offset:3px}
+  .links .disabled{color:#bdbcb4;text-decoration:line-through;text-decoration-color:#e0dfd8}
+  /* sections */
+  .media{padding:0 96px}
+  .section{padding:44px 96px 0;text-align:center}
+  .label{font:400 11px/1 var(--mono);letter-spacing:.16em;color:var(--label);margin-bottom:20px}
+  .abstract{max-width:640px;margin:0 auto;padding:48px 0 8px;text-align:center}
+  .abstract .label{margin-bottom:18px}
+  .abstract p{margin:0;font:400 17px/1.72 var(--sans);color:var(--body);text-align:left;text-wrap:pretty}
+  /* media frames */
+  .video-frame{position:relative;aspect-ratio:16/9;background:#141414;overflow:hidden;display:block;width:100%}
+  .video-frame video{width:100%;height:100%;object-fit:cover;display:block}
+  .diagram{width:100%;aspect-ratio:21/9;object-fit:contain;background:var(--panel);display:block}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .grid3 .cell{aspect-ratio:1;background:#141414;overflow:hidden}
+  .grid3 .cell img,.grid3 .cell video{width:100%;height:100%;object-fit:cover;display:block}
+  .caption{margin:18px auto 0;max-width:640px;font:400 14.5px/1.65 var(--sans);color:#7a7a7a}
+  /* table */
+  table{width:100%;border-collapse:collapse;font:400 14.5px var(--sans);color:var(--body)}
+  thead tr{border-bottom:1px solid var(--ink)}
+  th{padding:10px 6px;font:400 11px var(--mono);letter-spacing:.1em;color:var(--label)}
+  th.l{text-align:left} th.r{text-align:right}
+  td{padding:11px 6px} td.r{text-align:right}
+  tbody tr{border-bottom:1px solid #ececea}
+  tbody tr:last-child{border-bottom:none}
+  /* bibtex */
+  .bib{padding:44px 96px 64px;text-align:center}
+  pre{margin:0;padding:20px 22px;background:var(--panel);border:1px solid var(--rule);
+      font:400 12.5px/1.7 var(--mono);color:#333;white-space:pre-wrap;text-align:left;overflow:auto}
+  /* placeholder look when no asset yet */
+  .ph{display:flex;align-items:center;justify-content:center;color:#a8a596;
+      font:400 11px var(--mono);letter-spacing:.08em}
+  .diagram.ph{border:1px dashed #cfccc2}
+  .video-frame.ph,.grid3 .cell.ph{color:rgba(255,255,255,.5)}
+  /* responsive */
+  @media(max-width:680px){
+    .hero{padding:44px 24px 28px} .media{padding:0 24px}
+    .section,.bib{padding-left:24px;padding-right:24px}
+    h1{font-size:28px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero">
+    <h1>Act2See: Structured Articulated Representations through Robot Interaction</h1>
+    <div class="authors">Yifeng Liu<sup>1</sup>&nbsp;&nbsp; Yuzhen Chen<sup>2</sup>&nbsp;&nbsp; Bingyang Wang<sup>3</sup>&nbsp;&nbsp; Chengqi Li<sup>4</sup>&nbsp;&nbsp; Jingyi Lu<sup>3</sup>&nbsp;&nbsp; Han Li<sup>3</sup>&nbsp;&nbsp; Kaichen Zhou<sup>1,2</sup>&nbsp;&nbsp; Mengyu Wang<sup>2</sup>&nbsp;&nbsp; Fangneng Zhan<sup>3</sup></div>
+    <div class="affils"><sup>1</sup>Massachusetts Institute of Technology (MIT)&nbsp;&nbsp; <sup>2</sup>Harvard University&nbsp;&nbsp; <sup>3</sup>The Hong Kong University of Science and Technology (HKUST)&nbsp;&nbsp; <sup>4</sup>Eindhoven University of Technology</div>
+    <div class="venue">RSS 2026</div>
+    <nav class="links">
+      <a href="https://sites.google.com/alumni.brown.edu/fm4roboplan26/">paper</a>
+      <span class="disabled">arxiv</span>
+      <a href="https://github.com/lauyihong">code</a>
+    </nav>
+  </header>
+
+  <!-- ===================== TEASER VIDEO ===================== -->
+  <!--
+    TO ADD YOUR VIDEO: put your file at assets/teaser.mp4 (and an optional
+    still frame at assets/teaser-poster.jpg), then DELETE the placeholder <div>
+    below and UNCOMMENT the <video> block.
+  -->
+  <div class="media">
+    <div class="video-frame ph">TEASER VIDEO — assets/teaser.mp4</div>
+    <!--
+    <div class="video-frame">
+      <video controls autoplay muted loop playsinline poster="assets/teaser-poster.jpg">
+        <source src="assets/teaser.mp4" type="video/mp4">
+      </video>
+    </div>
+    -->
+  </div>
+
+  <!-- ===================== ABSTRACT ===================== -->
+  <section class="abstract">
+    <div class="label">ABSTRACT</div>
+    <p>We present Act2See, a closed-loop system for reconstructing an explicit URDF of an unknown articulated object during interaction. A VLM planner uses the current RGB-D observation together with the maintained URDF state, joint list, and attempt history to decide whether to probe, execute, or skip actions. The system then grounds actions into grasps and constrained motions, estimates joint structure mainly from end-effector trajectories, and updates the URDF online. The main idea is that the URDF acts both as the reconstruction output and as structured memory for the planner.</p>
+  </section>
+
+  <!-- ===================== METHOD ===================== -->
+  <!--
+    TO ADD YOUR DIAGRAM: put it at assets/method.png, then DELETE the
+    placeholder <div> and UNCOMMENT the <img> below.
+  -->
+  <section class="section">
+    <div class="label">METHOD</div>
+    <div class="diagram ph">METHOD / ARCHITECTURE DIAGRAM — assets/method.png</div>
+    <!-- <img class="diagram" src="assets/method.png" alt="Act2See architecture diagram"> -->
+    <p class="caption">The URDF is both reconstruction output and structured memory — the VLM planner reads it each step to decide whether to probe, execute, or skip.</p>
+  </section>
+
+  <!-- ===================== EXPERIMENTS ===================== -->
+  <!--
+    TO ADD RESULTS: put images/GIFs at assets/exp-*.gif, then replace each
+    placeholder cell with <img> (or <video autoplay muted loop>).
+  -->
+  <section class="section">
+    <div class="label">EXPERIMENTS</div>
+    <div class="grid3">
+      <div class="cell ph" style="align-items:flex-end;justify-content:flex-start;padding:11px">CABINET</div>
+      <div class="cell ph" style="align-items:flex-end;justify-content:flex-start;padding:11px">DRAWER</div>
+      <div class="cell ph" style="align-items:flex-end;justify-content:flex-start;padding:11px">LAPTOP</div>
+      <!-- Example filled cell:
+      <div class="cell"><img src="assets/exp-cabinet.gif" alt="Cabinet rollout"></div>
+      -->
+    </div>
+  </section>
+
+  <!-- ===================== ABLATIONS ===================== -->
+  <section class="section">
+    <div class="label">ABLATIONS</div>
+    <table>
+      <thead>
+        <tr><th class="l">VARIANT</th><th class="r">JOINT ERR &darr;</th><th class="r">SUCCESS &uarr;</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Full (URDF memory)</td><td class="r">&mdash;</td><td class="r">&mdash;</td></tr>
+        <tr><td>w/o attempt history</td><td class="r">&mdash;</td><td class="r">&mdash;</td></tr>
+        <tr><td>w/o probe action</td><td class="r">&mdash;</td><td class="r">&mdash;</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ===================== BIBTEX ===================== -->
+  <section class="bib">
+    <div class="label">BIBTEX</div>
+    <pre>@inproceedings{liu2026act2see,
+  title   = {Act2See: Structured Articulated Representations
+             through Robot Interaction},
+  author  = {Liu, Yifeng and Chen, Yuzhen and Wang, Bingyang and
+             Li, Chengqi and Lu, Jingyi and Li, Han and Zhou, Kaichen and
+             Wang, Mengyu and Zhan, Fangneng},
+  booktitle = {Robotics: Science and Systems (RSS)},
+  year    = {2026}
+}</pre>
+  </section>
+
+</div>
+</body>
+</html>
