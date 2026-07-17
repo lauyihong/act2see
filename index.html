@@ -36,6 +36,7 @@
   .abstract{max-width:640px;margin:0 auto;padding:48px 0 8px;text-align:center}
   .abstract .label{margin-bottom:18px}
   .abstract p{margin:0;font:400 17px/1.72 var(--sans);color:var(--body);text-align:left;text-wrap:pretty}
+  .abstract .construction{margin:22px 0 0;font:400 14px/1.6 var(--mono);color:var(--label);text-align:center}
   /* media frames */
   .video-frame{position:relative;aspect-ratio:16/9;background:#141414;overflow:hidden;display:block;width:100%}
   .video-frame video{width:100%;height:100%;object-fit:cover;display:block}
@@ -87,57 +88,48 @@
 
   <!-- ===================== TEASER VIDEO ===================== -->
   <!--
-    TO ADD YOUR VIDEO: put your file at assets/teaser.mp4 (and an optional
-    still frame at assets/teaser-poster.jpg), then DELETE the placeholder <div>
-    below and UNCOMMENT the <video> block.
-  -->
   <div class="media">
     <div class="video-frame ph">TEASER VIDEO — assets/teaser.mp4</div>
-    <!--
     <div class="video-frame">
       <video controls autoplay muted loop playsinline poster="assets/teaser-poster.jpg">
         <source src="assets/teaser.mp4" type="video/mp4">
       </video>
     </div>
-    -->
   </div>
+  -->
 
   <!-- ===================== ABSTRACT ===================== -->
   <section class="abstract">
     <div class="label">ABSTRACT</div>
     <p>We present Act2See, a closed-loop system for reconstructing an explicit URDF of an unknown articulated object during interaction. A VLM planner uses the current RGB-D observation together with the maintained URDF state, joint list, and attempt history to decide whether to probe, execute, or skip actions. The system then grounds actions into grasps and constrained motions, estimates joint structure mainly from end-effector trajectories, and updates the URDF online. The main idea is that the URDF acts both as the reconstruction output and as structured memory for the planner.</p>
+    <p class="construction">This project website is under construction.</p>
   </section>
 
   <!-- ===================== METHOD ===================== -->
   <!--
-    TO ADD YOUR DIAGRAM: put it at assets/method.png, then DELETE the
-    placeholder <div> and UNCOMMENT the <img> below.
-  -->
   <section class="section">
     <div class="label">METHOD</div>
     <div class="diagram ph">METHOD / ARCHITECTURE DIAGRAM — assets/method.png</div>
-    <!-- <img class="diagram" src="assets/method.png" alt="Act2See architecture diagram"> -->
+    <img class="diagram" src="assets/method.png" alt="Act2See architecture diagram">
     <p class="caption">The URDF is both reconstruction output and structured memory — the VLM planner reads it each step to decide whether to probe, execute, or skip.</p>
   </section>
+  -->
 
   <!-- ===================== EXPERIMENTS ===================== -->
   <!--
-    TO ADD RESULTS: put images/GIFs at assets/exp-*.gif, then replace each
-    placeholder cell with <img> (or <video autoplay muted loop>).
-  -->
   <section class="section">
     <div class="label">EXPERIMENTS</div>
     <div class="grid3">
       <div class="cell ph" style="align-items:flex-end;justify-content:flex-start;padding:11px">CABINET</div>
       <div class="cell ph" style="align-items:flex-end;justify-content:flex-start;padding:11px">DRAWER</div>
       <div class="cell ph" style="align-items:flex-end;justify-content:flex-start;padding:11px">LAPTOP</div>
-      <!-- Example filled cell:
       <div class="cell"><img src="assets/exp-cabinet.gif" alt="Cabinet rollout"></div>
-      -->
     </div>
   </section>
+  -->
 
   <!-- ===================== ABLATIONS ===================== -->
+  <!--
   <section class="section">
     <div class="label">ABLATIONS</div>
     <table>
@@ -151,8 +143,10 @@
       </tbody>
     </table>
   </section>
+  -->
 
   <!-- ===================== BIBTEX ===================== -->
+  <!--
   <section class="bib">
     <div class="label">BIBTEX</div>
     <pre>@inproceedings{liu2026act2see,
@@ -165,6 +159,7 @@
   year    = {2026}
 }</pre>
   </section>
+  -->
 
 </div>
 </body>
