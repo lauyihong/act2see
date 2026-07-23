@@ -37,6 +37,12 @@
   .abstract .label{margin-bottom:18px}
   .abstract p{margin:0;font:400 17px/1.72 var(--sans);color:var(--body);text-align:left;text-wrap:pretty}
   .abstract .construction{margin:22px 0 0;font:400 14px/1.6 var(--mono);color:var(--label);text-align:center}
+  .deployment{padding-top:44px}
+  .deployment-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+  .deployment-item{margin:0;min-width:0}
+  .deployment-item video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#141414}
+  .deployment-item figcaption{margin-top:10px;font:400 10px/1.45 var(--mono);color:#696969;
+      overflow-wrap:anywhere}
   /* media frames */
   .video-frame{position:relative;aspect-ratio:16/9;background:#141414;overflow:hidden;display:block;width:100%}
   .video-frame video{width:100%;height:100%;object-fit:cover;display:block}
@@ -66,7 +72,11 @@
   @media(max-width:680px){
     .hero{padding:44px 24px 28px} .media{padding:0 24px}
     .section,.bib{padding-left:24px;padding-right:24px}
+    .deployment-grid{grid-template-columns:1fr 1fr}
     h1{font-size:28px}
+  }
+  @media(max-width:420px){
+    .deployment-grid{grid-template-columns:1fr}
   }
 </style>
 </head>
@@ -102,7 +112,38 @@
   <section class="abstract">
     <div class="label">ABSTRACT</div>
     <p>We present Act2See, a closed-loop system for reconstructing an explicit URDF of an unknown articulated object during interaction. A VLM planner uses the current RGB-D observation together with the maintained URDF state, joint list, and attempt history to decide whether to probe, execute, or skip actions. The system then grounds actions into grasps and constrained motions, estimates joint structure mainly from end-effector trajectories, and updates the URDF online. The main idea is that the URDF acts both as the reconstruction output and as structured memory for the planner.</p>
-    <p class="construction">This project website is under construction.</p>
+    <p class="construction">This project website is under construction, the full project and arxiv will be released soon.</p>
+  </section>
+
+  <!-- ===================== REAL-WORLD DEPLOYMENT ===================== -->
+  <section class="section deployment">
+    <div class="label">Real-world Deployment Demonstration</div>
+    <div class="deployment-grid">
+      <figure class="deployment-item">
+        <video controls muted playsinline preload="metadata">
+          <source src="assets/20260706_005854_drawer_pull.mp4" type="video/mp4">
+        </video>
+        <figcaption>20260706_005854_drawer_pull</figcaption>
+      </figure>
+      <figure class="deployment-item">
+        <video controls muted playsinline preload="metadata">
+          <source src="assets/20260706_005423_drawer_pull.mp4" type="video/mp4">
+        </video>
+        <figcaption>20260706_005423_drawer_pull</figcaption>
+      </figure>
+      <figure class="deployment-item">
+        <video controls muted playsinline preload="metadata">
+          <source src="assets/20260705_210432_door_e2b.mp4" type="video/mp4">
+        </video>
+        <figcaption>20260705_210432_door_e2b</figcaption>
+      </figure>
+      <figure class="deployment-item">
+        <video controls muted playsinline preload="metadata">
+          <source src="assets/20260705_211145_door_e2b.mp4" type="video/mp4">
+        </video>
+        <figcaption>20260705_211145_door_e2b</figcaption>
+      </figure>
+    </div>
   </section>
 
   <!-- ===================== METHOD ===================== -->
