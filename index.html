@@ -111,8 +111,8 @@
 
   <!-- ===================== ABSTRACT ===================== -->
   <section class="abstract">
-    <div class="label">ABSTRACT</div>
-    <p>An articulated object's appearance does not fully specify how a robot should interact with it. A short interaction can reveal part of the object's kinematics, but planning what to do next requires retaining that knowledge alongside task progress and interaction outcomes. Act2See is a vision-language-model-guided framework that keeps this information as structured memory for a single-arm robot: an explicit URDF holding the object's part geometry and joint parameters, together with separately recorded task progress and interaction outcomes. A mission planner reads this memory and the current observation to decide whether to probe for more evidence, manipulate the object, or move on. Every executed interaction updates the memory &mdash; tracked RGB-D motion refines the joint estimates, pose-aligned depth fusion refines part geometry &mdash; and the recovered joint structure drives the next linear or circular manipulation. On a real robot, Act2See opens a drawer in 5/5 runs and a hinged door in 4/5 runs.</p>
+    <div class="label">TL;DR</div>
+    <p>A robot can't tell how a cabinet opens just by looking. Act2See lets it find out by trying: a short pull reveals the joint, the robot writes what it learned into an explicit URDF, and a VLM planner reads that model to decide the next move &mdash; probe again, open the part, or move on. Each interaction refines the model, and the model shapes each interaction. On a real robot, it opened a drawer in 5/5 runs and a hinged door in 4/5.</p>
   </section>
 
   <!-- ===================== METHOD ===================== -->
