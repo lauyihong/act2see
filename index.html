@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Act2See: Structured Articulated Representations through Robot Interaction</title>
-<meta name="description" content="Act2See — a closed-loop system for reconstructing an explicit URDF of an unknown articulated object during interaction.">
+<meta name="description" content="Act2See — a VLM-guided robot that keeps an evolving URDF of an articulated object as structured memory, updated through its own interaction.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -38,7 +38,7 @@
   .abstract p{margin:0;font:400 17px/1.72 var(--sans);color:var(--body);text-align:left;text-wrap:pretty}
   .abstract .construction{margin:22px 0 0;font:400 14px/1.6 var(--mono);color:var(--label);text-align:center}
   .deployment{padding-top:44px}
-  .deployment-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+  .deployment-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
   .deployment-item{margin:0;min-width:0}
   .deployment-item video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#141414}
   .deployment-item figcaption{margin-top:10px;font:400 10px/1.45 var(--mono);color:#696969;
@@ -46,6 +46,9 @@
   /* media frames */
   .video-frame{position:relative;aspect-ratio:16/9;background:#141414;overflow:hidden;display:block;width:100%}
   .video-frame video{width:100%;height:100%;object-fit:cover;display:block}
+  .figure{width:100%;height:auto;display:block}
+  .table-wrap{overflow-x:auto}
+  .table-wrap table{min-width:560px}
   .diagram{width:100%;aspect-ratio:21/9;object-fit:contain;background:var(--panel);display:block}
   .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
   .grid3 .cell{aspect-ratio:1;background:#141414;overflow:hidden}
@@ -56,7 +59,7 @@
   thead tr{border-bottom:1px solid var(--ink)}
   th{padding:10px 6px;font:400 11px var(--mono);letter-spacing:.1em;color:var(--label)}
   th.l{text-align:left} th.r{text-align:right}
-  td{padding:11px 6px} td.r{text-align:right}
+  td{padding:11px 6px;text-align:left} td.r{text-align:right}
   tbody tr{border-bottom:1px solid #ececea}
   tbody tr:last-child{border-bottom:none}
   /* bibtex */
@@ -97,23 +100,69 @@
     <div class="venue">accepted by RSS 2026 FM4RoboPlan Workshop</div>
   </header>
 
-  <!-- ===================== TEASER VIDEO ===================== -->
-  <!--
+  <!-- ===================== OVERVIEW VIDEO ===================== -->
   <div class="media">
-    <div class="video-frame ph">TEASER VIDEO — assets/teaser.mp4</div>
     <div class="video-frame">
-      <video controls autoplay muted loop playsinline poster="assets/teaser-poster.jpg">
-        <source src="assets/teaser.mp4" type="video/mp4">
+      <video controls muted playsinline preload="metadata" poster="assets/act2see_overview_poster.jpg">
+        <source src="assets/act2see_overview.mp4" type="video/mp4">
       </video>
     </div>
   </div>
-  -->
 
   <!-- ===================== ABSTRACT ===================== -->
   <section class="abstract">
     <div class="label">ABSTRACT</div>
-    <p>We present Act2See, a closed-loop system for reconstructing an explicit URDF of an unknown articulated object during interaction. A VLM planner uses the current RGB-D observation together with the maintained URDF state, joint list, and attempt history to decide whether to probe, execute, or skip actions. The system then grounds actions into grasps and constrained motions, estimates joint structure mainly from end-effector trajectories, and updates the URDF online. The main idea is that the URDF acts both as the reconstruction output and as structured memory for the planner.</p>
-    <p class="construction">This project website is under construction, the full project and arxiv will be released soon.</p>
+    <p>An articulated object's appearance does not fully specify how a robot should interact with it. A short interaction can reveal part of the object's kinematics, but planning what to do next requires retaining that knowledge alongside task progress and interaction outcomes. Act2See is a vision-language-model-guided framework that keeps this information as structured memory for a single-arm robot: an explicit URDF holding the object's part geometry and joint parameters, together with separately recorded task progress and interaction outcomes. A mission planner reads this memory and the current observation to decide whether to probe for more evidence, manipulate the object, or move on. Every executed interaction updates the memory &mdash; tracked RGB-D motion refines the joint estimates, pose-aligned depth fusion refines part geometry &mdash; and the recovered joint structure drives the next linear or circular manipulation. On a real robot, Act2See opens a drawer in 5/5 runs and a hinged door in 4/5 runs.</p>
+  </section>
+
+  <!-- ===================== TEASER FIGURE ===================== -->
+  <section class="section">
+    <div class="label">ARTICULATED MEMORY</div>
+    <img class="figure" src="assets/teaser.png" alt="Act2See articulated model: static cabinet body, movable door link, estimated revolute joint axis, and the probe-update-act loop">
+    <p class="caption">Act2See turns robot interaction into an evolving articulated model. The robot probes an unknown object, updates an explicit URDF from the observed part motion, and uses the recovered joint structure to generate subsequent manipulation trajectories.</p>
+  </section>
+
+  <!-- ===================== METHOD ===================== -->
+  <section class="section">
+    <div class="label">METHOD</div>
+    <img class="figure" src="assets/method.png" alt="Act2See system flow: mission planner, action grounder, robot execution, and online reconstruction">
+    <p class="caption">The VLM mission planner uses the current observation and persistent memory to choose a target and decide whether to probe, execute, or skip. The action grounder turns that decision into a grasp (GraspGen) and a joint-constrained motion executed in bounded chunks. CoTracker3 point tracks are lifted to 3-D to estimate joint parameters, and SAM-based masks with pose-aligned TSDF fusion update part geometry. The resulting URDF, with task progress and interaction outcomes, informs the next decision.</p>
+  </section>
+
+  <!-- ===================== RESULTS ===================== -->
+  <section class="section">
+    <div class="label">ARTICULATED RECONSTRUCTION (SIMULATION)</div>
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th class="l">METHOD</th><th class="r">PRISMATIC AXIS (&deg;) &darr;</th><th class="r">PRISMATIC VALID (%) &uarr;</th><th class="r">REVOLUTE AXIS (&deg;) &darr;</th><th class="r">REVOLUTE POS. (cm) &darr;</th><th class="r">REVOLUTE VALID (%) &uarr;</th><th class="r">RUNTIME (s) &darr;</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>ArticulateAnything</td><td class="r">9.00</td><td class="r">76.9</td><td class="r">0.00</td><td class="r">N/A</td><td class="r">100</td><td class="r">181.62</td></tr>
+        <tr><td>VideoArtGS (RGB)</td><td class="r">1.84</td><td class="r">76.9</td><td class="r">&ndash;</td><td class="r">&ndash;</td><td class="r">0</td><td class="r">874.30</td></tr>
+        <tr><td><b>Act2See</b></td><td class="r">2.60</td><td class="r"><b>100</b></td><td class="r">8.69</td><td class="r">6.70</td><td class="r"><b>100</b></td><td class="r"><b>4.23</b></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="caption">System-level comparison in SAPIEN with a Franka Panda arm. Methods use different sensing inputs, so this is not an identical-input estimator ablation. Valid rate is the fraction of cases with the correct joint type and finite joint parameters.</p>
+  </section>
+
+  <section class="section">
+    <div class="label">CLOSED-LOOP VARIANTS (SIMULATION, n = 11 PER JOINT TYPE)</div>
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th class="l">CONDITION</th><th class="r">PRISMATIC COMPLETION (%) &uarr;</th><th class="r">PRISMATIC EXEC. &darr;</th><th class="r">REVOLUTE COMPLETION (%) &uarr;</th><th class="r">REVOLUTE EXEC. &darr;</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Without sequential planning</td><td class="r">81.8</td><td class="r">1.00</td><td class="r">0.0</td><td class="r">1.00</td></tr>
+        <tr><td>Without reconstruction</td><td class="r">72.7</td><td class="r">3.73</td><td class="r">45.5</td><td class="r">4.45</td></tr>
+        <tr><td><b>Full Act2See</b></td><td class="r">81.8</td><td class="r">1.00</td><td class="r">72.7</td><td class="r">2.18</td></tr>
+        <tr><td>Full Act2See + prior axis</td><td class="r">90.9</td><td class="r">1.73</td><td class="r">81.8</td><td class="r">2.45</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="caption">Reusing structure from the robot's own interaction matters most for hinged doors. The prior-axis condition starts from an axis estimated in a preceding Act2See interaction with the same part, not from simulator ground truth. Completion criteria and execution counting differ across conditions, so this is a system-level comparison.</p>
   </section>
 
   <!-- ===================== REAL-WORLD DEPLOYMENT ===================== -->
