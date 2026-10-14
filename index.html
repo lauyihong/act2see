@@ -115,18 +115,18 @@
     <p>An articulated object's appearance does not fully specify how a robot should interact with it. A short interaction can reveal part of the object's kinematics, but planning what to do next requires retaining that knowledge alongside task progress and interaction outcomes. Act2See is a vision-language-model-guided framework that keeps this information as structured memory for a single-arm robot: an explicit URDF holding the object's part geometry and joint parameters, together with separately recorded task progress and interaction outcomes. A mission planner reads this memory and the current observation to decide whether to probe for more evidence, manipulate the object, or move on. Every executed interaction updates the memory &mdash; tracked RGB-D motion refines the joint estimates, pose-aligned depth fusion refines part geometry &mdash; and the recovered joint structure drives the next linear or circular manipulation. On a real robot, Act2See opens a drawer in 5/5 runs and a hinged door in 4/5 runs.</p>
   </section>
 
-  <!-- ===================== TEASER FIGURE ===================== -->
-  <section class="section">
-    <div class="label">ARTICULATED MEMORY</div>
-    <img class="figure" src="assets/teaser.png" alt="Act2See articulated model: static cabinet body, movable door link, estimated revolute joint axis, and the probe-update-act loop">
-    <p class="caption">Act2See turns robot interaction into an evolving articulated model. The robot probes an unknown object, updates an explicit URDF from the observed part motion, and uses the recovered joint structure to generate subsequent manipulation trajectories.</p>
-  </section>
-
   <!-- ===================== METHOD ===================== -->
   <section class="section">
     <div class="label">METHOD</div>
     <img class="figure" src="assets/method.png" alt="Act2See system flow: mission planner, action grounder, robot execution, and online reconstruction">
     <p class="caption">The VLM mission planner uses the current observation and persistent memory to choose a target and decide whether to probe, execute, or skip. The action grounder turns that decision into a grasp (GraspGen) and a joint-constrained motion executed in bounded chunks. CoTracker3 point tracks are lifted to 3-D to estimate joint parameters, and SAM-based masks with pose-aligned TSDF fusion update part geometry. The resulting URDF, with task progress and interaction outcomes, informs the next decision.</p>
+  </section>
+
+  <!-- ===================== TEASER FIGURE ===================== -->
+  <section class="section">
+    <div class="label">ARTICULATED MEMORY</div>
+    <img class="figure" src="assets/teaser.png" alt="Act2See articulated model: static cabinet body, movable door link, estimated revolute joint axis, and the probe-update-act loop">
+    <p class="caption">Act2See turns robot interaction into an evolving articulated model. The robot probes an unknown object, updates an explicit URDF from the observed part motion, and uses the recovered joint structure to generate subsequent manipulation trajectories.</p>
   </section>
 
   <!-- ===================== RESULTS ===================== -->
