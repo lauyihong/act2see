@@ -28,6 +28,7 @@
   .venue{font:400 12px/1.4 var(--mono);letter-spacing:.02em;color:var(--label);margin-top:16px}
   .links{display:flex;gap:24px;justify-content:center;margin-top:24px;font:400 14px var(--mono);color:var(--ink)}
   .links a{color:var(--ink);text-underline-offset:3px}
+  .links .soon{color:#bdbcb4;cursor:default}
   .links .disabled{color:#bdbcb4;text-decoration:line-through;text-decoration-color:#e0dfd8}
   /* sections */
   .media{padding:0 96px}
@@ -37,7 +38,10 @@
   .abstract .label{margin-bottom:18px}
   .abstract p{margin:0;font:400 17px/1.72 var(--sans);color:var(--body);text-align:left;text-wrap:pretty}
   .abstract .construction{margin:22px 0 0;font:400 14px/1.6 var(--mono);color:var(--label);text-align:center}
-  .deployment{padding-top:44px}
+  .deployment{padding-top:44px;padding-bottom:120px}
+  .speed{display:flex;gap:6px;margin-top:8px}
+  .speed button{font:400 10px/1 var(--mono);padding:4px 8px;border:1px solid #ccc;background:transparent;color:#696969;cursor:pointer}
+  .speed button.on{background:#141414;color:#fff;border-color:#141414}
   .deployment-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
   .deployment-item{margin:0;min-width:0}
   .deployment-item video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#141414}
@@ -95,7 +99,7 @@
     <nav class="links">
       <a href="https://openreview.net/forum?id=sghH6peEK8&referrer=%5BProgram%20Chair%20Console%5D%28%2Fgroup%3Fid%3Droboticsfoundation.org%2FRSS%2F2026%2FWorkshop%2FFM4RoboPlan%2FProgram_Chairs%23submission-status%29">paper</a>
       <span class="disabled">arxiv</span>
-      <a href="https://github.com/lauyihong/active_perception">code</a>
+      <span class="soon">code (coming soon)</span><!-- repo private until review ends: https://github.com/lauyihong/active_perception -->
     </nav>
     <div class="venue">accepted by RSS 2026 FM4RoboPlan Workshop</div>
   </header>
@@ -173,24 +177,28 @@
         <video controls muted playsinline preload="metadata">
           <source src="assets/20260706_005854_drawer_pull.mp4" type="video/mp4">
         </video>
+        <div class="speed"><button class="on" data-r="1">1&times;</button><button data-r="5">5&times;</button><button data-r="10">10&times;</button></div>
         <figcaption>Drawer &middot; probe, estimate sliding axis, pull open</figcaption>
       </figure>
       <figure class="deployment-item">
         <video controls muted playsinline preload="metadata">
           <source src="assets/20260706_005423_drawer_pull.mp4" type="video/mp4">
         </video>
+        <div class="speed"><button class="on" data-r="1">1&times;</button><button data-r="5">5&times;</button><button data-r="10">10&times;</button></div>
         <figcaption>Drawer &middot; linear pull along the estimated axis</figcaption>
       </figure>
       <figure class="deployment-item">
         <video controls muted playsinline preload="metadata">
           <source src="assets/20260705_210432_door_e2b.mp4" type="video/mp4">
         </video>
+        <div class="speed"><button class="on" data-r="1">1&times;</button><button data-r="5">5&times;</button><button data-r="10">10&times;</button></div>
         <figcaption>Door &middot; probe, estimate hinge axis, open along an arc</figcaption>
       </figure>
       <figure class="deployment-item">
         <video controls muted playsinline preload="metadata">
           <source src="assets/20260705_211145_door_e2b.mp4" type="video/mp4">
         </video>
+        <div class="speed"><button class="on" data-r="1">1&times;</button><button data-r="5">5&times;</button><button data-r="10">10&times;</button></div>
         <figcaption>Door &middot; arc opening from the estimated hinge</figcaption>
       </figure>
     </div>
@@ -253,5 +261,11 @@
   -->
 
 </div>
+<script>
+document.querySelectorAll('.deployment-item').forEach(f=>{const v=f.querySelector('video');
+f.querySelectorAll('.speed button').forEach(b=>b.onclick=()=>{v.playbackRate=+b.dataset.r;
+f.querySelectorAll('.speed button').forEach(x=>x.classList.toggle('on',x===b));});
+v.addEventListener('loadedmetadata',()=>{const o=f.querySelector('.speed .on');if(o)v.playbackRate=+o.dataset.r;});});
+</script>
 </body>
 </html>
